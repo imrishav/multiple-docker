@@ -9,10 +9,10 @@ script:
   - docker run imrishav/react-test npm test -- --coverage
 
 after_success:
-  - docker b -t imrishav/multi-client ./clinet
-  - docker b -t imrishav/multi-nginx ./nginx
-  - docker b -t imrishav/multi-server ./server
-  - docker b -t imrishav/multi-worker ./worker
+  - docker build -t imrishav/multi-client ./clinet
+  - docker build -t imrishav/multi-nginx ./nginx
+  - docker build -t imrishav/multi-server ./server
+  - docker build -t imrishav/multi-worker ./worker
   # log in Docker CLI
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_ID" -p="$DOCKER_PASSWORD";
   - docker push imrishav/multi-client
