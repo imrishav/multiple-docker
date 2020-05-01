@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t imrishav/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run imrishav/react-test npm test -- --coverage
+
+after_success:
+  - docker b -t imrishav/multi-client ./clinet
+  - docker b -t imrishav/multi-nginx ./nginx
+  - docker b -t imrishav/multi-server ./server
+  - docker b -t imrishav/multi-worker ./worker
+  # log in Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push imrishav/multi-client
+  - docker push imrishav/multi-nginx
+  - docker push imrishav/multi-server
+  - docker push imrishav/multi-worker
