@@ -13,7 +13,6 @@ after_success:
   - docker build -t imrishav/multi-nginx ./nginx
   - docker build -t imrishav/multi-server ./server
   - docker build -t imrishav/multi-worker ./worker
-  # log in Docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push imrishav/multi-client
   - docker push imrishav/multi-nginx
